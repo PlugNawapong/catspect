@@ -304,6 +304,22 @@
             section {
                 padding: 80px 20px;
             }
+
+            /* Responsive color boxes */
+            .image-container > div[style*="display: flex"] {
+                flex-wrap: wrap;
+                gap: 15px !important;
+            }
+
+            .image-container > div[style*="display: flex"] > div {
+                flex: 1 1 calc(50% - 10px);
+                min-width: 120px;
+            }
+
+            .image-container > div[style*="display: flex"] > div > div[style*="width: 100px"] {
+                width: 70px !important;
+                height: 70px !important;
+            }
         }
 
         /* Animations */
@@ -363,6 +379,9 @@
         <div class="container">
             <h2 class="tagline">Rapid, On-Site, and Non-Destructive Chemical Analysis</h2>
             <p class="description">Discover the future of sodium nitrite detection with portable multispectral imaging technology.</p>
+        </div>
+        <div class="image-container" style="margin-top: 60px;">
+            <img src="catspect-hero.png" alt="Catspect Multispectral Imaging System" class="full-width-image">
         </div>
     </section>
 
@@ -513,13 +532,6 @@
                     <p>Complete 9-band multispectral scan in under one minute with automated filter wheel rotation.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Product Image -->
-    <section class="image-section">
-        <div class="image-container">
-            <img src="catspect-hero.png" alt="Catspect Multispectral Imaging System" class="full-width-image">
         </div>
     </section>
 
