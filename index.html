@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catspect - Portable Multispectral Imaging System for Nitrite Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 40px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            letter-spacing: 4px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #fff;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: 96px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 60px;
+            color: #666;
+            letter-spacing: 8px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 80px;
+            letter-spacing: 2px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 60px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Feature Sections */
+        .feature-section {
+            background: #fff;
+        }
+
+        .feature-section:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .large-title {
+            font-size: 72px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            letter-spacing: 40px;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            color: #666;
+            margin-bottom: 60px;
+            letter-spacing: 6px;
+            text-transform: capitalize;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 2;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            padding: 50px 40px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            background: rgba(0, 0, 0, 0.04);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Specifications */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+            text-align: left;
+        }
+
+        .spec-item {
+            padding: 30px 0;
+            border-left: 1px solid #e0e0e0;
+            padding-left: 30px;
+        }
+
+        .spec-item h4 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .spec-item p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Tagline Section */
+        .tagline {
+            font-size: 52px;
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 1000px;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        /* Image Display Section */
+        .image-section {
+            padding: 0;
+            min-height: auto;
+        }
+
+        .full-width-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .image-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 40px;
+            background: #fafafa;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        footer p {
+            color: #999;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: 10px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+                letter-spacing: 4px;
+            }
+
+            .large-title {
+                font-size: 32px;
+                letter-spacing: 10px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .tagline {
+                font-size: 28px;
+            }
+
+            .image-container {
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="catspect-logo.png" alt="Catspect Logo" class="logo-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <svg class="logo-icon" style="display:none;" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Clean minimalist spectral bars -->
+                <defs>
+                    <linearGradient id="spectrumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#000;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#666;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Vertical bars representing spectral bands -->
+                <rect x="20" y="35" width="8" height="50" fill="url(#spectrumGrad)" rx="2"/>
+                <rect x="34" y="28" width="8" height="64" fill="url(#spectrumGrad)" rx="2" opacity="0.85"/>
+                <rect x="48" y="20" width="8" height="80" fill="url(#spectrumGrad)" rx="2"/>
+                <rect x="62" y="28" width="8" height="64" fill="url(#spectrumGrad)" rx="2" opacity="0.85"/>
+                <rect x="76" y="32" width="8" height="56" fill="url(#spectrumGrad)" rx="2" opacity="0.7"/>
+                <rect x="90" y="38" width="8" height="44" fill="url(#spectrumGrad)" rx="2" opacity="0.6"/>
+            </svg>
+            <span class="logo-text">CATSPECT</span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container fade-in">
+            <h1>Catspect</h1>
+            <h2>Portable Multispectral Imaging</h2>
+            <p>Advanced Nitrite Detection System<br>Available Winter 2025/26</p>
+            <a href="#features" class="cta-button">Start scrolling</a>
+        </div>
+    </section>
+
+    <!-- Tagline Section -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="tagline">Rapid, On-Site, and Non-Destructive Chemical Analysis</h2>
+            <p class="description">Discover the future of sodium nitrite detection with portable multispectral imaging technology.</p>
+        </div>
+    </section>
+
+    <!-- MSI Technology Feature -->
+    <section class="feature-section" id="features">
+        <div class="container">
+            <h2 class="large-title">MULTISPECTRAL IMAGING</h2>
+            <h3 class="subtitle">Advanced Detection Technology</h3>
+            <p class="description">
+                Catspect employs custom-built multispectral imaging (MSI) integrated with computer vision 
+                for quantitative analysis of sodium nitrite on paper-based platforms using the Griess reaction. 
+                Our system transforms conventional colorimetric detection into a robust quantitative imaging approach.
+            </p>
+        </div>
+    </section>
+
+    <!-- NDI Technology -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">NDI TECHNOLOGY</h2>
+            <h3 class="subtitle">Normalized Difference Index</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Enhanced Correlation</h3>
+                    <p>NDI achieves 19.32% improvement in R² correlation with sodium nitrite concentration compared to single-band analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multi-Spectral Bands</h3>
+                    <p>Nine spectral bands from 360 nm to 940 nm provide comprehensive chemical analysis with sub-minute acquisition time.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Superior Performance</h3>
+                    <p>Significantly outperforms conventional RGB smartphone imaging with narrower spectral bandwidths.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectral Analysis Visualization -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="spectral-bands.png" alt="Nine Spectral Bands Analysis" class="full-width-image" onerror="this.style.display='none';">
+            <div style="background: linear-gradient(90deg, #8B00FF 0%, #4169E1 15%, #00CED1 30%, #00FF00 45%, #FFFF00 60%, #FFA500 75%, #FF0000 90%, #8B0000 100%); height: 60px; border-radius: 10px; margin: 40px 0;">
+            </div>
+            <p style="text-align: center; color: #666; font-size: 14px;">360 nm - 940 nm Spectral Range</p>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">APPLICATIONS</h2>
+            <h3 class="subtitle">Food Safety & Water Quality</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Food Safety Testing</h3>
+                    <p>Detect sodium nitrite in processed meat products (bacon, ham, sausage). Safety limit: 80 ppm maximum for safe consumption.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Water Quality Analysis</h3>
+                    <p>Monitor nitrite contamination in drinking water. Detection range: 0-10 ppm, meeting 1 ppm safety standards.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>On-Site Testing</h3>
+                    <p>Portable system enables rapid field testing without need for laboratory equipment or skilled technicians.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Process -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="detection-process.png" alt="Nitrite Detection Process" class="full-width-image" onerror="this.style.display='none';">
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">Paper-Based Detection Platform</p>
+        </div>
+    </section>
+
+    <!-- Griess Reaction -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">GRIESS REACTION</h2>
+            <h3 class="subtitle">Colorimetric Detection Method</h3>
+            <p class="description">
+                The Griess reaction provides a simple and fast method for quantitative analysis of nitrite. 
+                An aromatic amine (PABA or SA) reacts with nitrite under acidic conditions to form a diazonium salt, 
+                which then binds to NED to create a pink-to-magenta azo dye with peak absorption at ~545 nm.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Paper-Based Platform</h3>
+                    <p>Cellulose fiber sample pads provide hydrophilic, porous matrix for spontaneous sample transport via capillary action.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>High Selectivity</h3>
+                    <p>Excellent specificity for nitrite ions with no false-positive signals from common interfering ions like nitrate.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Quantitative Analysis</h3>
+                    <p>Linear relationship (R² = 0.99) between absorbance and nitrite concentration from 0.5 to 10 ppm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Griess Reaction Color Change -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="griess-reaction.png" alt="Griess Reaction Color Development" class="full-width-image" onerror="this.style.display='none';">
+            <div style="display: flex; justify-content: space-around; margin: 40px 0; gap: 20px;">
+                <div style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background: #FFF; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; color: #999;">0 ppm</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background: #FFB6C1; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; color: #999;">2 ppm</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background: #FF69B4; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; color: #999;">5 ppm</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background: #C71585; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
+                    <p style="margin-top: 10px; color: #999;">10 ppm</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: #666; font-size: 14px;">Pink-to-Magenta Color Development with Increasing Nitrite Concentration</p>
+        </div>
+    </section>
+
+    <!-- System Design -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">SYSTEM DESIGN</h2>
+            <h3 class="subtitle">Custom-Built Portable Device</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Compact & Portable</h3>
+                    <p>Dimensions: 19cm × 24cm × 30cm, Weight: 1.4kg. 3D-printed housing ensures reproducible measurements.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Raspberry Pi 5 Core</h3>
+                    <p>Powered by Raspberry Pi 5 with monochrome CMOS camera and motorized 9-filter wheel system.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Rapid Acquisition</h3>
+                    <p>Complete 9-band multispectral scan in under one minute with automated filter wheel rotation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Image -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="catspect-hero.png" alt="Catspect Multispectral Imaging System" class="full-width-image">
+        </div>
+    </section>
+
+    <!-- Specifications -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">SPECIFICATIONS</h2>
+            <p class="description">
+                Catspect combines advanced multispectral imaging with portable design 
+                for professional-grade chemical analysis in the field.
+            </p>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <h4>Spectral Bands</h4>
+                    <p>360 nm • 475 nm • 550 nm • 670 nm • 710 nm • 800 nm • 808 nm • 850 nm • 940 nm</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Camera System</h4>
+                    <p>Monochrome CMOS • Motorized Filter Wheel • Halogen Illumination</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Detection Range</h4>
+                    <p>0.5–10 ppm (Sodium Nitrite) • Linear R² = 0.99</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Processing</h4>
+                    <p>Raspberry Pi 5 • Python Analysis • NDI Algorithm</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Acquisition Time</h4>
+                    <p>Sub-minute • 9 spectral bands • Automated capture</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Dimensions</h4>
+                    <p>19cm × 24cm × 30cm • Weight: 1.4kg • Portable</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Platform</h4>
+                    <p>Paper-based • PABA-NED & SA-NED • Griess Reaction</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Performance</h4>
+                    <p>Mean IoU: 80.10% • Classification: 4 levels • High accuracy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-order Section -->
+    <section class="feature-section">
+        <div class="container">
+            <h2 class="large-title">AVAILABLE SOON</h2>
+            <p class="description" style="font-size: 20px; margin-bottom: 30px;">Expected availability Winter 2025/26</p>
+            <p class="description" style="font-size: 32px; font-weight: 600; margin-bottom: 40px;">Contact for Pricing</p>
+            <a href="#contact" class="cta-button">Request Information</a>
+            <p class="description" style="margin-top: 20px; font-size: 14px;">
+                For research institutions, laboratories, and food safety organizations
+            </p>
+        </div>
+    </section>
+
+    <!-- Final Tagline -->
+    <section class="feature-section">
+        <div class="container">
+            <p class="tagline">
+                Catspect isn't just about detection — it's about transforming conventional colorimetric analysis 
+                into robust quantitative imaging. By combining portability with scientific accuracy, 
+                Catspect enables rapid, on-site, and non-destructive chemical analysis for food safety and water quality.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Catspect. Portable Multispectral Imaging for Chemical Analysis.</p>
+        <p style="margin-top: 10px; font-size: 12px; color: #555;">Based on research published in Sensors journal (MDPI) - DOI: 10.3390/s25237323</p>
+    </footer>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.container').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
