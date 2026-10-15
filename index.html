@@ -1,668 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catspect - Portable Multispectral Imaging System for Nitrite Detection</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CATSPECT</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="CATSPECT is a three-person research team building multispectral imaging instruments, bit by bit, out of passion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a calm single-column portfolio. Generous white space, left-aligned reading column, photos as the main rhythm, one magenta accent borrowed from the Griess dye. */
+:root{
+  --bg:#fafaf9;
+  --surface:#ffffff;
+  --ink:#16181d;
+  --muted:#5d636d;
+  --line:#e3e4e6;
+  --accent:#a8295f;
+  --font-display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --font-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1080px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#111316;--surface:#181b1f;--ink:#e9ebee;--muted:#9ca2ac;--line:#2a2e35;--accent:#e2709f;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#111316;--surface:#181b1f;--ink:#e9ebee;--muted:#9ca2ac;--line:#2a2e35;--accent:#e2709f;color-scheme:dark}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fff;
-            color: #000;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            line-height: 1.6;
-        }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1rem;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+figure{margin:0}
+dl{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.lead{font-size:1.1875rem;color:var(--muted);max-width:60ch}
+.lead strong{color:var(--ink);font-weight:500}
+.lead + .lead{margin-top:16px}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+figcaption{font-size:.8125rem;color:var(--muted);margin-top:10px;line-height:1.5}
+.photo img{border-radius:6px;width:100%}
 
-        section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 40px;
-            position: relative;
-        }
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.nav .name{font-family:var(--font-display);font-size:1.25rem;text-decoration:none;white-space:nowrap}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px;font-size:.875rem}
+.nav ul a{text-decoration:none;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:640px){.nav ul{gap:14px;font-size:.8125rem}.nav ul li.opt{display:none}}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
+/* Sections */
+section{padding-block:clamp(72px,10vw,120px)}
+section + section{border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:16px;margin-bottom:clamp(36px,5vw,56px)}
+.sec-head h2{font-size:clamp(2rem,4.5vw,3rem);max-width:20ch}
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 30px 40px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
+/* Hero */
+.hero{padding-top:clamp(56px,8vw,96px)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center}
+.hero-grid > *{min-width:0}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.6rem,5.8vw,4.25rem);letter-spacing:-.01em;margin-block:18px 24px}
+.hero h1 em{color:var(--accent)}
+.hero .who{font-size:.9375rem;color:var(--muted);margin-top:24px;display:grid;gap:2px}
+.hero .who b{color:var(--ink);font-weight:500}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;padding:11px 20px;border-radius:999px;font-size:.875rem;font-weight:500;text-decoration:none;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;font-family:var(--font-body)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink);color:var(--ink);background:transparent}
+.hero .photo img{aspect-ratio:4/3;object-fit:cover}
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(48px,7vw,80px);border-top:1px solid var(--line)}
+@media (max-width:700px){.numbers{grid-template-columns:repeat(2,1fr)}}
+.numbers div{padding:18px 16px 18px 0;display:grid;gap:4px;align-content:start}
+.numbers b{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,4vw,2.75rem);line-height:1}
+.numbers span{font-size:.8125rem;color:var(--muted);line-height:1.4}
+.spectrum{height:4px;border-radius:2px;background:linear-gradient(90deg,#6b2fb8,#2f6be0 20%,#14a85c 37%,#d6c400 50%,#ff9d00 58%,#e2541c 67%,#8f1d1d 80%,#3d1616)}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+/* About */
+.about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(32px,5vw,72px)}
+.about-grid > *{min-width:0}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-grid h2{font-size:clamp(2rem,4.5vw,3rem);margin-block:14px 24px;max-width:18ch}
+.timeline{list-style:none;margin:0;padding:0;align-self:start;display:grid;border-left:1px solid var(--line)}
+.timeline li{position:relative;padding:0 0 22px 22px;display:grid;gap:2px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--muted)}
+.timeline li.now::before{background:var(--accent);border-color:var(--accent)}
+.t-when{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.timeline li.now .t-when{color:var(--accent)}
+.t-what{font-size:.9375rem}
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-        }
+/* Project index */
+.index{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:820px){.index{grid-template-columns:1fr}}
+.index a{display:grid;gap:10px;text-decoration:none;min-width:0;align-content:start}
+.index img{aspect-ratio:4/3;object-fit:cover;border-radius:6px;transition:opacity .2s;width:100%}
+.index img.on-white{background:#fff;object-fit:contain;border:1px solid var(--line)}
+.index a:hover img{opacity:.88}
+.index .meta{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);margin-top:4px}
+.index h3{font-size:1.5rem}
+.index p{font-size:.9375rem;color:var(--muted)}
+.index .go{font-size:.875rem;color:var(--accent)}
 
-        .logo-text {
-            font-weight: 600;
-            letter-spacing: 4px;
-        }
+/* Project detail */
+.p-head{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,32px);align-items:start;margin-bottom:clamp(28px,4vw,44px)}
+.p-head > div{display:grid;gap:12px;min-width:0}
+.p-num{font-family:var(--font-display);font-size:clamp(3rem,7vw,5rem);line-height:.85;color:var(--accent)}
+.p-head h2{font-size:clamp(2rem,4.5vw,3rem)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--font-mono);font-size:.6875rem;padding:3px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.p-cols{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(28px,4vw,56px);margin-top:clamp(28px,4vw,40px)}
+.p-cols > *{min-width:0}
+@media (max-width:860px){.p-cols{grid-template-columns:1fr}}
+.notes{display:grid;border-top:1px solid var(--line);align-self:start}
+.notes div{padding:14px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.notes dt{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.notes dd{margin:0;font-size:.9375rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(28px,4vw,40px);border-top:1px solid var(--line)}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats div{padding:16px 16px 0 0;display:grid;gap:4px;align-content:start}
+.stats b{font-family:var(--font-display);font-weight:400;font-size:2.25rem;line-height:1}
+.stats span{font-size:.8125rem;color:var(--muted);line-height:1.4}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(28px,4vw,40px)}
+.grid2 > *{min-width:0}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.grid2 img{aspect-ratio:4/3;object-fit:cover}
+.white img{background:#fff;padding:10px;border:1px solid var(--line);object-fit:contain}
+.wide img{aspect-ratio:16/9;object-fit:cover}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:clamp(28px,4vw,40px)}
+.grid4 > *{min-width:0}
+@media (max-width:760px){.grid4{grid-template-columns:repeat(2,1fr)}}
+.grid4 img{aspect-ratio:1/1;object-fit:cover}
+.readout{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;margin-top:16px;font-family:var(--font-mono);font-size:.8125rem;padding:12px 16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-variant-numeric:tabular-nums}
+.readout em{font-style:normal;color:var(--muted);margin-right:6px}
+.readout i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.readout .tag{color:var(--accent);font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase}
+.dot-h{background:#2f9e55}.dot-m{background:#e0912f}.dot-u{background:#d64545}
 
-        /* Hero Section */
-        .hero {
-            background: #fff;
-            text-align: center;
-            padding-top: 100px;
-        }
+/* Team */
+.team-quote{font-family:var(--font-display);font-size:clamp(1.75rem,3.6vw,2.5rem);line-height:1.25;max-width:28ch;margin-top:16px}
+.team-quote em{color:var(--accent)}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:clamp(36px,5vw,56px)}
+@media (max-width:760px){.values{grid-template-columns:1fr}}
+.values div{display:grid;gap:6px;padding-top:14px;border-top:2px solid var(--ink);align-content:start}
+.values h3{font-size:1.375rem}
+.values p{font-size:.9375rem;color:var(--muted)}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);margin-top:clamp(40px,6vw,64px)}
+.team-grid > *{min-width:0}
+@media (max-width:820px){.team-grid{grid-template-columns:1fr}}
+.h-small{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.list{display:grid;border-top:1px solid var(--line)}
+.list div{padding:12px 0;border-bottom:1px solid var(--line);font-size:.9375rem}
+.list div span{display:block;font-size:.8125rem;color:var(--muted)}
 
-        .hero h1 {
-            font-size: 96px;
-            font-weight: 300;
-            margin-bottom: 30px;
-            letter-spacing: 20px;
-            text-transform: uppercase;
-        }
+/* Next */
+.apps{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;border-top:1px solid var(--line)}
+@media (max-width:700px){.apps{grid-template-columns:1fr}}
+.apps div{padding:18px 0;border-bottom:1px solid var(--line);display:grid;gap:4px}
+.apps h3{font-size:1.375rem;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.apps h3 small{font-family:var(--font-mono);font-size:.6875rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.apps p{font-size:.9375rem;color:var(--muted)}
 
-        .hero h2 {
-            font-size: 36px;
-            font-weight: 300;
-            margin-bottom: 60px;
-            color: #666;
-            letter-spacing: 8px;
-        }
+/* Paper + contact */
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:clamp(22px,4vw,36px);display:grid;gap:14px;margin-top:16px}
+.paper h3{font-size:clamp(1.375rem,2.8vw,1.875rem)}
+.paper .src{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.paper .authors{font-size:.875rem;color:var(--muted)}
+.paper .authors u{text-decoration:none;color:var(--ink);font-weight:500}
+.paper .partners{margin-top:4px}
+.paper .partners .h-small{margin-bottom:8px}
+.paper .partners .list div{padding:9px 0;font-size:.875rem}
+.paper .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toast{font-family:var(--font-mono);font-size:.75rem;color:var(--accent)}
+.contact{margin-top:clamp(56px,8vw,88px);display:grid;gap:18px}
+.contact h2{font-size:clamp(2.25rem,5vw,3.5rem);max-width:18ch}
+.contact h2 em{color:var(--accent)}
+.contact .addr{font-size:.9375rem;color:var(--muted)}
+.copy-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.copy-row[hidden]{display:none}
+.copy-row code{font-family:var(--font-mono);font-size:1rem;user-select:all}
+footer{border-top:1px solid var(--line);padding-block:26px;font-size:.8125rem;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
-        .hero p {
-            font-size: 16px;
-            color: #999;
-            margin-bottom: 80px;
-            letter-spacing: 2px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 18px 60px;
-            background: #000;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.4s ease;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .cta-button:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Feature Sections */
-        .feature-section {
-            background: #fff;
-        }
-
-        .feature-section:nth-child(even) {
-            background: #fafafa;
-        }
-
-        .large-title {
-            font-size: 72px;
-            font-weight: 300;
-            margin-bottom: 40px;
-            letter-spacing: 40px;
-            line-height: 1.3;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: 28px;
-            font-weight: 300;
-            color: #666;
-            margin-bottom: 60px;
-            letter-spacing: 6px;
-            text-transform: capitalize;
-        }
-
-        .description {
-            font-size: 18px;
-            line-height: 2;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto 80px;
-        }
-
-        /* Feature Cards */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 80px;
-        }
-
-        .feature-card {
-            padding: 50px 40px;
-            background: rgba(0, 0, 0, 0.02);
-            border-radius: 12px;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .feature-card:hover {
-            background: rgba(0, 0, 0, 0.04);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .feature-card p {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Specifications */
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 80px;
-            text-align: left;
-        }
-
-        .spec-item {
-            padding: 30px 0;
-            border-left: 1px solid #e0e0e0;
-            padding-left: 30px;
-        }
-
-        .spec-item h4 {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .spec-item p {
-            font-size: 14px;
-            color: #999;
-            line-height: 1.6;
-        }
-
-        /* Tagline Section */
-        .tagline {
-            font-size: 52px;
-            font-weight: 300;
-            line-height: 1.5;
-            max-width: 1000px;
-            margin: 0 auto;
-            color: #333;
-        }
-
-        /* Image Display Section */
-        .image-section {
-            padding: 0;
-            min-height: auto;
-        }
-
-        .full-width-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        .image-container {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 40px;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 40px;
-            background: #fafafa;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        footer p {
-            color: #999;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 48px;
-                letter-spacing: 10px;
-            }
-
-            .hero h2 {
-                font-size: 24px;
-                letter-spacing: 4px;
-            }
-
-            .large-title {
-                font-size: 32px;
-                letter-spacing: 10px;
-            }
-
-            .subtitle {
-                font-size: 18px;
-                letter-spacing: 2px;
-            }
-
-            .tagline {
-                font-size: 20px;
-                line-height: 1.5;
-                padding: 0 5px;
-                margin-bottom: 20px;
-            }
-
-            .description {
-                font-size: 14px;
-                line-height: 1.7;
-                padding: 0 5px;
-                margin-bottom: 40px;
-            }
-
-            .container[style*="padding: 80px"] {
-                padding: 50px 20px !important;
-            }
-
-            .image-container {
-                margin: 30px auto;
-                padding: 0 15px;
-            }
-
-            .image-container img {
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-
-            header {
-                padding: 20px;
-            }
-
-            section {
-                padding: 60px 15px;
-            }
-
-            .feature-section {
-                min-height: auto;
-            }
-
-            /* Responsive color boxes */
-            .image-container > div[style*="display: flex"] {
-                flex-wrap: wrap;
-                gap: 15px !important;
-            }
-
-            .image-container > div[style*="display: flex"] > div {
-                flex: 1 1 calc(50% - 10px);
-                min-width: 120px;
-            }
-
-            .image-container > div[style*="display: flex"] > div > div[style*="width: 100px"] {
-                width: 70px !important;
-                height: 70px !important;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-    </style>
+/* Team photo + assembly */
+.team-photo{margin-top:clamp(40px,6vw,64px)}
+.story-eyebrow{margin-bottom:16px}
+.team-photo.top{margin:0 0 clamp(40px,6vw,64px)}
+.team-photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 16px;list-style:none;padding:0;margin:0}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.steps li{display:grid;gap:10px;align-content:start;min-width:0}
+.steps img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:6px}
+.steps .n{font-family:var(--font-mono);font-size:.75rem;color:var(--accent)}
+.steps h3{font-size:1.25rem}
+.steps p{font-size:.875rem;color:var(--muted)}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="catspect-logo.png" alt="Catspect Logo" class="logo-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-            <svg class="logo-icon" style="display:none;" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Clean minimalist spectral bars -->
-                <defs>
-                    <linearGradient id="spectrumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#000;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#666;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <!-- Vertical bars representing spectral bands -->
-                <rect x="20" y="35" width="8" height="50" fill="url(#spectrumGrad)" rx="2"/>
-                <rect x="34" y="28" width="8" height="64" fill="url(#spectrumGrad)" rx="2" opacity="0.85"/>
-                <rect x="48" y="20" width="8" height="80" fill="url(#spectrumGrad)" rx="2"/>
-                <rect x="62" y="28" width="8" height="64" fill="url(#spectrumGrad)" rx="2" opacity="0.85"/>
-                <rect x="76" y="32" width="8" height="56" fill="url(#spectrumGrad)" rx="2" opacity="0.7"/>
-                <rect x="90" y="38" width="8" height="44" fill="url(#spectrumGrad)" rx="2" opacity="0.6"/>
-            </svg>
-            <span class="logo-text">CATSPECT</span>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="name" href="#top">CATSPECT</a>
+    <ul>
+      <li><a href="#story">Our story</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li class="opt"><a href="#next">Next</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow" style="text-transform:none;letter-spacing:.04em;font-size:.8125rem"><b>CAT</b>ch <b>SPECT</b>rum for your solution</p>
+        <h1>Three of us, building instruments that <em>see more than a camera</em>.</h1>
+        <p class="lead">CATSPECT is a small research team of three. We started building multispectral imagers bit by bit, out of passion and partly just for fun. The results kept looking promising, so we kept going, and now we're expanding.</p>
+        <div class="cta">
+          <a class="btn" href="#story">Read our story</a>
+          <a class="btn ghost" href="#projects">See the projects</a>
         </div>
-    </header>
+      </div>
+      <figure class="photo">
+        <img src="assets/gen3-chamber.jpg" alt="The CATSPECT real-time multispectral imager: an aluminium chamber with its door open, lit warm yellow inside, camera mounted on top" width="1800" height="1350">
+        <figcaption>Our third instrument, the real-time multispectral imager, 2026.</figcaption>
+      </figure>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container fade-in">
-            <h1>Catspect</h1>
-            <h2>Portable Multispectral Imaging System</h2>
-            <p>Rapid, On-Site, and Non-Destructive Chemical Analysis</p>
-            <a href="#features" class="cta-button">GET STARTED</a>
+    <div class="numbers" aria-label="At a glance">
+      <div><b>3</b><span>people who love building things</span></div>
+      <div><b>3</b><span>instrument generations so far</span></div>
+      <div><b>20</b><span>filter positions in our latest wheel</span></div>
+      <div><b>1</b><span>peer-reviewed paper, <i>Sensors</i> 2025</span></div>
+    </div>
+    <div class="spectrum" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="wrap">
+    <p class="eyebrow story-eyebrow">Our story</p>
+    <figure class="team-photo top">
+      <img src="assets/team.jpg" alt="The three CATSPECT team members in the lab, smiling, with a prototype imager and tools on the bench" width="1800" height="1013">
+      <figcaption>The three of us at the bench, mid-build.</figcaption>
+    </figure>
+    <div class="about-grid">
+      <div>
+        <h2>It started for fun.</h2>
+        <p class="lead">Three of us share one passion: building things that measure light. Ordinary cameras see only three broad colours, but much of what matters in food, plants and chemistry hides in narrower bands. We wanted to see them.</p>
+        <p class="lead">So we formed <strong>CATSPECT</strong> and started building, one part at a time, after hours and just for fun. The results looked promising, so we kept going.</p>
+      </div>
+      <ol class="timeline" aria-label="How CATSPECT grew">
+        <li><span class="t-when">The start</span><span class="t-what">A 3D printer, a Raspberry Pi and a shared idea</span></li>
+        <li><span class="t-when">2025</span><span class="t-what">First prototype reads nitrite on a paper test pad</span></li>
+        <li><span class="t-when">Dec 2025</span><span class="t-what">Published in <i>Sensors</i> with three partner universities</span></li>
+        <li><span class="t-when">2026</span><span class="t-what">Rebuilt in aluminium, then made real-time</span></li>
+        <li class="now"><span class="t-when">Now</span><span class="t-what">Expanding to new applications and partners</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ASSEMBLY -->
+<section id="build">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Built by hand</p>
+      <h2>From a table of parts to a working instrument.</h2>
+      <p class="lead">We assemble every instrument ourselves. Here is how our aluminium imager came together, one step at a time.</p>
+    </div>
+    <ol class="steps">
+      <li><img src="assets/asm-1-parts.jpg" alt="Filters, retaining rings, filter wheels and a circuit board laid out on a white bench" width="900" height="900" loading="lazy"><span class="n">Step 1</span><h3>Lay out the parts</h3><p>Filters, retaining rings, machined wheels and the circuit board, checked and cleaned.</p></li>
+      <li><img src="assets/asm-2-filters.jpg" alt="Filters being seated into an aluminium filter wheel with a red tool" width="900" height="900" loading="lazy"><span class="n">Step 2</span><h3>Seat the filters</h3><p>Each filter is pressed into its slot and locked with a ring.</p></li>
+      <li><img src="assets/asm-3-camera.jpg" alt="Camera being screwed onto the top plate with a hex key" width="900" height="900" loading="lazy"><span class="n">Step 3</span><h3>Mount the camera</h3><p>The camera is fixed to the top plate, centred over the light path.</p></li>
+      <li><img src="assets/asm-4-wheels.jpg" alt="A hand reaching into the chassis to fit the filter wheels under the top plate" width="900" height="900" loading="lazy"><span class="n">Step 4</span><h3>Fit the wheels</h3><p>The two filter wheels go in under the camera, stacked in the light path.</p></li>
+      <li><img src="assets/asm-5-ring.jpg" alt="The machined illumination ring with eight lamp mounting brackets around a central aperture" width="900" height="900" loading="lazy"><span class="n">Step 5</span><h3>Add the lighting ring</h3><p>A machined ring with eight lamp mounts, for even light on the sample.</p></li>
+      <li><img src="assets/asm-5-fasten.jpg" alt="Locking the lighting ring in place inside the chassis with a small screwdriver" width="900" height="900" loading="lazy"><span class="n">Step 6</span><h3>Lock the lighting ring</h3><p>The ring is screwed tight inside the chassis, centred under the wheels.</p></li>
+      <li><img src="assets/asm-6-closed.jpg" alt="The finished aluminium instrument, closed, with the camera on top" width="900" height="900" loading="lazy"><span class="n">Step 7</span><h3>Close it up</h3><p>Panels on, cables in, electronics sealed.</p></li>
+      <li><img src="assets/gen3-chamber-close.jpg" alt="Inside the finished instrument, the chamber lit warm yellow with a sample under the lighting ring" width="1400" height="1050" loading="lazy"><span class="n">Step 8</span><h3>First light</h3><p>Lamps on, sample in, and the first test images.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PROJECT INDEX -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Projects</p>
+      <h2>Three instruments, each built on the last.</h2>
+      <p class="lead">We built them one at a time. Each began where the previous one hit its limits. Read them in order, or jump to the one you're curious about.</p>
+    </div>
+    <div class="index">
+      <a href="#p1">
+        <img class="on-white" src="assets/device-photo.jpg" alt="" width="1580" height="1350">
+        <span class="meta">01 · 2025 · Published</span>
+        <h3>Portable nitrite imager</h3>
+        <p>A 3D-printed prototype that turns a paper colour test into a number.</p>
+        <span class="go">Read project →</span>
+      </a>
+      <a href="#p2">
+        <img src="assets/gen2-wheel.jpg" alt="" width="1600" height="1152">
+        <span class="meta">02 · 2026 · Engineered</span>
+        <h3>20-filter aluminium imager</h3>
+        <p>The same idea rebuilt for precision, with CNC wheels and our own circuit board.</p>
+        <span class="go">Read project →</span>
+      </a>
+      <a href="#p3">
+        <img src="assets/gen3-screen.jpg" alt="" width="1400" height="1050">
+        <span class="meta">03 · 2026 · Real-time</span>
+        <h3>Live plant-health imager</h3>
+        <p>Multispectral video at about 22 frames per second, analysed as it runs.</p>
+        <span class="go">Read project →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 1 -->
+<section id="p1">
+  <div class="wrap">
+    <div class="p-head">
+      <span class="p-num">01</span>
+      <div>
+        <p class="eyebrow">2025 · Food safety · Published in <i>Sensors</i></p>
+        <h2>Portable nitrite imager</h2>
+        <div class="tags"><span>9 bands, 360–940 nm</span><span>Raspberry Pi 5</span><span>3D-printed</span><span>Computer vision</span></div>
+      </div>
+    </div>
+    <figure class="photo white">
+      <img src="assets/instrument-anatomy.jpg" alt="Three views of the prototype: CAD model, front view with camera, motor, filter wheel and halogen lamps labelled, and back view with Raspberry Pi and motor driver" width="2000" height="644" loading="lazy">
+      <figcaption>From CAD model to working prototype: camera, motorised nine-filter wheel, two halogen lamps and a Raspberry Pi 5.</figcaption>
+    </figure>
+    <div class="p-cols">
+      <div>
+        <p class="lead">Sodium nitrite keeps processed meat safe, but too much of it is a health risk, and testing it properly needs a laboratory. We asked whether a small multispectral camera could read a simple paper test pad and give a real number on the spot.</p>
+        <p class="lead">It could. Pairing the band where the test dye absorbs (550 nm) with a band where it doesn't (940 nm) gave a clean signal that held up under different lighting. Computer vision then sorted each pad into four concentration levels.</p>
+      </div>
+      <dl class="notes">
+        <div><dt>The question</dt><dd>Can we measure nitrite on-site, without a lab?</dd></div>
+        <div><dt>What we built</dt><dd>A 1.4 kg imager with nine filters from UV to near-infrared, plus the analysis software</dd></div>
+        <div><dt>What we learned</dt><dd>Nine filters weren't enough for every task, and printed parts flexed and let in stray light.</dd></div>
+      </dl>
+    </div>
+    <div class="stats">
+      <div><b>+19.3%</b><span>better fit (R²) than the best single band</span></div>
+      <div><b>80.1%</b><span>mean IoU for four-level classification</span></div>
+      <div><b>&lt;1 min</b><span>for a full nine-band scan</span></div>
+      <div><b>1.4 kg</b><span>complete, portable instrument</span></div>
+    </div>
+    <div class="grid2">
+      <figure class="photo white"><img src="assets/ndi-map.jpg" alt="Normalized difference index image of test pads; brighter pads contain more nitrite" width="1150" height="940" loading="lazy"><figcaption>Every pixel becomes a measurement. Brighter pads carry more nitrite.</figcaption></figure>
+      <figure class="photo white"><img src="assets/classification.jpg" alt="Four detected pad regions labelled Low, Medium, High and Very High" width="1340" height="950" loading="lazy"><figcaption>What the operator sees: four concentration levels.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 2 -->
+<section id="p2">
+  <div class="wrap">
+    <div class="p-head">
+      <span class="p-num">02</span>
+      <div>
+        <p class="eyebrow">2026 · Engineering upgrade</p>
+        <h2>20-filter aluminium imager</h2>
+        <div class="tags"><span>Aluminium chassis</span><span>2 × 10-slot CNC wheels</span><span>CATSPECT PCB V1</span><span>NVIDIA edge AI</span></div>
+      </div>
+    </div>
+    <figure class="photo wide">
+      <img src="assets/gen2-wheel.jpg" alt="A CNC-machined aluminium filter wheel holding coloured interference filters" width="1600" height="1152" loading="lazy">
+      <figcaption>One of the two CNC-machined filter wheels. Interference filters reflect the colours they block.</figcaption>
+    </figure>
+    <div class="p-cols">
+      <div>
+        <p class="lead">The prototype proved the science. Next we wanted an instrument that gives the same answer every time and lasts, so we rebuilt every part we had compromised on.</p>
+        <p class="lead">The housing became aluminium with a matte-black interior. One printed wheel became two machined wheels of ten slots each, for <strong>20 filter positions</strong>. Loose wiring became our first circuit board, and the processing moved to an NVIDIA edge-AI computer.</p>
+      </div>
+      <dl class="notes">
+        <div><dt>The question</dt><dd>Can the prototype become a precise, repeatable lab instrument?</dd></div>
+        <div><dt>What we built</dt><dd>Aluminium chassis, stacked CNC filter wheels, an eight-lamp lighting ring and our own PCB</dd></div>
+        <div><dt>What we learned</dt><dd>Stepping through filters one by one is too slow for anything alive or moving.</dd></div>
+      </dl>
+    </div>
+    <div class="grid4">
+      <figure class="photo"><img src="assets/gen2-two-wheels.jpg" alt="Two machined filter wheels side by side" width="1600" height="1056" loading="lazy"><figcaption>Two wheels, ten slots each</figcaption></figure>
+      <figure class="photo"><img src="assets/gen2-pcb.jpg" alt="The CATSPECT circuit board, version 1, held in one hand" width="1157" height="1200" loading="lazy"><figcaption>Our first PCB, V1</figcaption></figure>
+      <figure class="photo"><img src="assets/gen2-chassis.jpg" alt="Open aluminium chassis with stacked filter wheels under the camera" width="1098" height="1200" loading="lazy"><figcaption>Wheels stacked in the light path</figcaption></figure>
+      <figure class="photo"><img src="assets/gen2-label.jpg" alt="Electronics enclosure printed with Multispectral Imaging System by CATSPECT" width="1400" height="1167" loading="lazy"><figcaption>Sealed, labelled electronics</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 3 -->
+<section id="p3">
+  <div class="wrap">
+    <div class="p-head">
+      <span class="p-num">03</span>
+      <div>
+        <p class="eyebrow">2026 · Plant science · Real-time</p>
+        <h2>Live plant-health imager</h2>
+        <div class="tags"><span>≈22 fps</span><span>Red · Green · NIR</span><span>NDVI · GNDVI · NNIR</span><span>Health classes</span></div>
+      </div>
+    </div>
+    <figure class="photo">
+      <img src="assets/gen3-software.jpg" alt="Live analysis software showing a camera feed of duckweed, red, green and NIR channels, three vegetation index maps, a health map, a histogram and class shares" width="2000" height="1078" loading="lazy">
+      <figcaption>Our live analysis software: raw channels, three vegetation indices and a health map, updating while the camera runs.</figcaption>
+    </figure>
+    <div class="readout" aria-label="Readout from one live frame">
+      <span class="tag">One live frame</span>
+      <span><em>FPS</em>21.9</span>
+      <span><em>NDVI mean</em>0.511</span>
+      <span><i class="dot-h"></i>Healthy 61%</span>
+      <span><i class="dot-m"></i>Moderate 38%</span>
+      <span><i class="dot-u"></i>Unhealthy 1%</span>
+    </div>
+    <div class="p-cols">
+      <div>
+        <p class="lead">Instead of taking pictures one filter at a time, this instrument reads red, green and near-infrared from every video frame. It computes vegetation indices on the fly and labels every pixel healthy, moderate or unhealthy.</p>
+        <p class="lead">Our first live subject was duckweed, tiny floating plants used in plant-biology research. Watching their health map update in real time was one of the best moments of the project for all of us.</p>
+      </div>
+      <dl class="notes">
+        <div><dt>The question</dt><dd>Can we watch living samples change, rather than photograph them?</dd></div>
+        <div><dt>What we built</dt><dd>A real-time camera set-up and analysis software on the aluminium platform</dd></div>
+        <div><dt>Where it leads</dt><dd>Growth-chamber monitoring, crop stress and other live samples</dd></div>
+      </dl>
+    </div>
+    <div class="grid2">
+      <figure class="photo"><img src="assets/gen3-sample.jpg" alt="Duckweed fronds floating in a small white 3D-printed tray" width="1000" height="750" loading="lazy"><figcaption>The sample: duckweed in a printed tray.</figcaption></figure>
+      <figure class="photo"><img src="assets/gen3-workstation.jpg" alt="Full workstation: lit imaging chamber beside two monitors running the live analysis" width="1800" height="1215" loading="lazy"><figcaption>The full set-up, from chamber to screen.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's next</p>
+      <h2>The same platform can answer other questions.</h2>
+      <p class="lead">Change the filters, the lighting and the analysis, and the instrument measures something new. These are the directions we're most excited to explore next.</p>
+    </div>
+    <div class="apps">
+      <div><h3>Food safety <small>Demonstrated</small></h3><p>Nitrite and other colour-forming tests, read as numbers on-site.</p></div>
+      <div><h3>Plant health <small>Demonstrated</small></h3><p>Live vegetation indices for growth chambers and plant research.</p></div>
+      <div><h3>Water quality</h3><p>Paper-strip tests for nitrite, nitrate or phosphate, without judging colours by eye.</p></div>
+      <div><h3>Food freshness</h3><p>Pigment and moisture changes mapped across meat, fruit or grain.</p></div>
+      <div><h3>Diagnostic test strips</h3><p>Consistent quantitative readings from lateral-flow and spot tests.</p></div>
+      <div><h3>Documents and materials</h3><p>UV and near-infrared contrast to tell apart inks and fibres that look identical.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAPER + CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Publication</p>
+    <article class="paper">
+      <span class="src"><i>Sensors</i> 2025, 25(23), 7323 · Open access</span>
+      <h3>Portable Multispectral Imaging System for Sodium Nitrite Detection via Griess Reaction on Cellulose Fiber Sample Pads</h3>
+      <p class="authors">Kataphiniharn C., Unsuree N., Janchaysang S., Lumjeak S., Tulyananda T., Wangkham T., Srichola P., Nithiwutratthasakul T., Chattham N., Phanphak S.</p>
+      <p id="citeText" hidden>Kataphiniharn, C.; Unsuree, N.; Janchaysang, S.; Lumjeak, S.; Tulyananda, T.; Wangkham, T.; Srichola, P.; Nithiwutratthasakul, T.; Chattham, N.; Phanphak, S. Portable Multispectral Imaging System for Sodium Nitrite Detection via Griess Reaction on Cellulose Fiber Sample Pads. Sensors 2025, 25, 7323. https://doi.org/10.3390/s25237323</p>
+      <div class="partners">
+        <p class="h-small">Partners on this paper</p>
+        <div class="list">
+          <div>Kasetsart University<span>Department of Physics · Agricultural and Agro-Industrial Product Improvement Institute</span></div>
+          <div>King Mongkut's University of Technology North Bangkok<span>Industrial Physics and Medical Instrumentation</span></div>
+          <div>Mahidol University<span>Plant Biology &amp; Astrobotany Laboratory</span></div>
         </div>
-    </section>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://www.mdpi.com/1424-8220/25/23/7323" target="_blank" rel="noopener">Read the paper</a>
+        <button class="btn ghost" type="button" id="copyCite">Copy citation</button>
+        <span class="toast" id="citeToast" aria-live="polite"></span>
+      </div>
+    </article>
 
-    <!-- Tagline Section
-    <section class="feature-section" style="display: block; padding: 0;">
-        <div class="image-container" style="margin: 0; padding: 0; max-width: 100%;">
-            <img src="catspect-hero.png" alt="Catspect Multispectral Imaging System" class="full-width-image" style="border-radius: 0; box-shadow: none;">
-        </div>
-        <div class="container" style="padding: 80px 40px;">
-            <h2 class="tagline">Rapid, On-Site, and Non-Destructive Chemical Analysis</h2>
-            <p class="description">Discover the future of sodium nitrite detection with portable multispectral imaging technology.</p>
-        </div>
-    </section> -->
+    <div class="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Have a measurement a normal camera <em>can't make</em>?</h2>
+      <p class="lead">We're always happy to talk with researchers, labs and industry teams, or anyone who shares the passion. Tell us what you need to measure and where, and we'll suggest where to start.</p>
+      <div class="copy-row" id="emailRow" hidden>
+        <code id="emailText"></code>
+        <button class="btn ghost" type="button" id="copyEmail">Copy email</button>
+        <span class="toast" id="emailToast" aria-live="polite"></span>
+      </div>
+      <p class="addr">CATSPECT · Thailand</p>
+    </div>
+  </div>
+</section>
 
-    <!-- MSI Technology Feature -->
-    <section class="feature-section" id="features">
-        <div class="container">
-            <h2 class="large-title">MULTISPECTRAL IMAGING</h2>
-            <h3 class="subtitle">Advanced Sodium Nitrite Detection Technology</h3>
-            <p class="description">
-                Catspect employs custom-built multispectral imaging (MSI) systems integrated with normalized difference index (NDI) and computer vision 
-                for quantitative analysis of sodium nitrite using the Griess reaction. 
-                Our system transforms conventional colorimetric detection into a robust quantitative imaging approach.
-            </p>
-        </div>
-    </section>
+</main>
 
-    <!-- NDI Technology -->
-    <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">NDI TECHNOLOGY</h2>
-            <h3 class="subtitle">Normalized Difference Index</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Enhanced Correlation</h3>
-                    <p>NDI achieves 19.32% improvement in R² correlation with sodium nitrite concentration compared to single-band analysis.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Multi-Spectral Bands</h3>
-                    <p>Nine spectral bands from 360 nm to 940 nm provide comprehensive chemical analysis with sub-minute acquisition time.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Superior Performance</h3>
-                    <p>Significantly outperforms conventional RGB smartphone imaging with narrower spectral bandwidths.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer>
+  <div class="wrap">
+    <span>© 2026 CATSPECT · CATch SPECTrum for your solution</span>
+    <span class="mono">360 – 940 nm</span>
+  </div>
+</footer>
 
-    <!-- Griess Reaction -->
-    <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">GRIESS REACTION</h2>
-            <h3 class="subtitle">Colorimetric Detection Method</h3>
-            <p class="description">
-                The Griess reaction provides a simple and fast method for quantitative analysis of nitrite. 
-                An aromatic amine (PABA or SA) reacts with nitrite under acidic conditions to form a diazonium salt, 
-                which then binds to NED to create a pink-to-magenta azo dye with peak absorption at ~545 nm.
-            </p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Measurement Versatility</h3>
-                    <p>The Griess reaction can be implemented on various platforms—including paper-based and hydrogel substrates—providing flexible measurement options.</p>
-                </div> 
-                <!-- <div class="feature-card">
-                    <h3>High Selectivity</h3>
-                    <p>Excellent specificity for nitrite ions from common interfering ions like nitrate.</p>
-                </div> -->
-                <div class="feature-card">
-                    <h3>Quantitative Analysis</h3>
-                    <p>With a strong linear relationship between NDI and sodium nitrite concentration, accurate quantification can be performed.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+/* Put your public email between the quotes to show it in the Contact section. */
+const CONTACT_EMAIL = "";
 
-    <!-- Griess Reaction Color Change -->
-    <section class="image-section">
-        <div class="image-container">
-            <img src="griess-reaction.png" alt="Griess Reaction Color Development" class="full-width-image" onerror="this.style.display='none';">
-            <div style="display: flex; justify-content: space-around; margin: 40px 0; gap: 20px;">
-                <div style="text-align: center;">
-                    <div style="width: 100px; height: 100px; background: #FFF; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
-                    <p style="margin-top: 10px; color: #999;">0 ppm</p>
-                </div>
-                <div style="text-align: center;">
-                    <div style="width: 100px; height: 100px; background: #FFB6C1; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
-                    <p style="margin-top: 10px; color: #999;">2 ppm</p>
-                </div>
-                <div style="text-align: center;">
-                    <div style="width: 100px; height: 100px; background: #FF69B4; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
-                    <p style="margin-top: 10px; color: #999;">5 ppm</p>
-                </div>
-                <div style="text-align: center;">
-                    <div style="width: 100px; height: 100px; background: #C71585; border: 2px solid #333; border-radius: 10px; margin: 0 auto;"></div>
-                    <p style="margin-top: 10px; color: #999;">10 ppm</p>
-                </div>
-            </div>
-            <p style="text-align: center; color: #666; font-size: 14px;">Pink-to-Magenta Color Development with Increasing Nitrite Concentration</p>
-        </div>
-    </section>
-
-    <!-- Spectral Analysis Visualization -->
-    <!-- <section class="image-section">
-        <div class="image-container">
-            <img src="spectral-bands.png" alt="Nine Spectral Bands Analysis" class="full-width-image" onerror="this.style.display='none';">
-            <div style="background: linear-gradient(90deg, #8B00FF 0%, #4169E1 15%, #00CED1 30%, #00FF00 45%, #FFFF00 60%, #FFA500 75%, #FF0000 90%, #8B0000 100%); height: 60px; border-radius: 10px; margin: 40px 0;">
-            </div>
-            <p style="text-align: center; color: #666; font-size: 14px;">360 nm - 940 nm Spectral Range</p>
-        </div>
-    </section> -->
-
-    <!-- Applications -->
-    <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">APPLICATIONS</h2>
-            <h3 class="subtitle">Food Safety</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Sodium Nitrite Quantification</h3>
-                    <p>Quantify sodium nitrite concentration in-line during the production of processed meats (e.g., bacon, ham, and sausage) to ensure levels remain within regulatory safety limits (e.g., ≤80 ppm for safe consumption).</p>
-                </div>
-                <div class="feature-card">
-                    <h3>On-Site Testing</h3>
-                    <p>Portable system enables rapid field testing without need for laboratory equipment or skilled technicians.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Easy to Operate with Intuitive Visualization</h3>
-                    <p>The system features user-friendly software and an intuitive UI, delivering clear visualization through computer vision techniques.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detection Process -->
-    <!-- <section class="image-section">
-        <div class="image-container">
-            <img src="detection-process.png" alt="Nitrite Detection Process" class="full-width-image" onerror="this.style.display='none';">
-            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">Paper-Based Detection Platform</p>
-        </div>
-    </section> -->
-
-    <!-- System Design -->
-    <!-- <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">SYSTEM DESIGN</h2>
-            <h3 class="subtitle">Custom-Built Portable Device</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Compact & Portable</h3>
-                    <p>Dimensions: 19cm × 24cm × 30cm, Weight: 1.4kg.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Raspberry Pi 5 Core</h3>
-                    <p>Powered by Raspberry Pi 5 with monochrome CMOS camera and motorized 9-filter wheel system.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Rapid Acquisition</h3>
-                    <p>Complete 9-band multispectral scan in under one minute with automated filter wheel rotation.</p>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Specifications -->
-    <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">SPECIFICATIONS</h2>
-            <p class="description">
-                Catspect combines advanced multispectral imaging with portable design 
-                for professional-grade chemical analysis in the field.
-            </p>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <h4>Spectral Bands</h4>
-                    <p>360 nm • 475 nm • 550 nm • 670 nm • 710 nm • 800 nm • 808 nm • 850 nm • 940 nm</p>
-                </div>
-                <div class="spec-item">
-                    <h4>Camera System</h4>
-                    <p>Monochrome CMOS • Motorized Filter Wheel • Halogen Illumination</p>
-                </div>
-                <div class="spec-item">
-                    <h4>Detection Range</h4>
-                    <p>0.5–10 ppm (Sodium Nitrite) • Linear Response</p>
-                </div>
-                <div class="spec-item">
-                    <h4>Processing</h4>
-                    <p>Windows, Mac, Linux • Python • NDI </p>
-                </div>
-                <div class="spec-item">
-                    <h4>Acquisition Time</h4>
-                    <p>Sub-minute • Automated capture</p>
-                </div>
-                <div class="spec-item">
-                    <h4>Dimensions</h4>
-                    <p>19cm × 24cm × 30cm • Weight: 1.4kg • Portable</p>
-                </div>
-                <div class="spec-item">
-                    <h4>Platform</h4>
-                    <p>Paper-based, Hydrogel • PABA-NED & SA-NED • Griess Reaction</p>
-                </div>
-                <!-- <div class="spec-item">
-                    <h4>Performance</h4>
-                    <p>Mean IoU: 80.10% • Classification: 4 levels • High accuracy</p>
-                </div> -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Pre-order Section -->
-    <section class="feature-section">
-        <div class="container">
-            <h2 class="large-title">AVAILABLE SOON</h2>
-            <!-- <p class="description" style="font-size: 20px; margin-bottom: 30px;">Expected availability Winter 2025/26</p>
-            <p class="description" style="font-size: 32px; font-weight: 600; margin-bottom: 40px;">Contact for Pricing</p> -->
-            <a href="#contact" class="cta-button">Request Information</a>
-            <p class="description" style="margin-top: 20px; font-size: 14px;">
-                For research institutions, laboratories, and food safety organizations
-            </p>
-        </div>
-    </section>
-
-    <!-- Final Tagline -->
-    <section class="feature-section">
-        <div class="container">
-            <p class="tagline">
-                Catspect isn’t just about detection—it transforms conventional colorimetric analysis into robust quantitative imaging. 
-                Combining portability with proven accuracy, Catspect enables rapid, on-site, non-destructive chemical analysis for food safety applications.
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Catspect. Portable Multispectral Imaging for Chemical Analysis.</p>
-        <p style="margin-top: 10px; font-size: 12px; color: #555;">Based on research published in Sensors journal (MDPI) - DOI: 10.3390/s25237323</p>
-    </footer>
-
-    <script>
-        // Smooth scroll animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Fade in elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.container').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
+function copyText(text, toastEl, sourceEl){
+  const ok=()=>{toastEl.textContent='Copied';setTimeout(()=>{toastEl.textContent='';},2000);};
+  const fallback=()=>{
+    if(sourceEl.hidden){toastEl.textContent='Copy is not available here';return;}
+    const r=document.createRange();r.selectNodeContents(sourceEl);const s=getSelection();s.removeAllRanges();s.addRange(r);
+    toastEl.textContent='Selected. Press Ctrl/Cmd+C';
+  };
+  try{navigator.clipboard.writeText(text).then(ok).catch(fallback);}catch(e){fallback();}
+}
+document.getElementById('copyCite').addEventListener('click',()=>{
+  const el=document.getElementById('citeText');copyText(el.textContent,document.getElementById('citeToast'),el);
+});
+if(CONTACT_EMAIL){
+  const t=document.getElementById('emailText');t.textContent=CONTACT_EMAIL;
+  document.getElementById('emailRow').hidden=false;
+  document.getElementById('copyEmail').addEventListener('click',()=>copyText(CONTACT_EMAIL,document.getElementById('emailToast'),t));
+}
+</script>
 </body>
 </html>
