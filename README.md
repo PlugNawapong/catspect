@@ -1,30 +1,24 @@
-# Catspect - Portable Multispectral Imaging System
+# CATSPECT
 
-Website for Catspect Portable Multispectral Imaging System for Sodium Nitrite Detection.
+CATch SPECTrum for your solution. Portfolio of a three-person research team building multispectral imaging instruments, bit by bit, out of passion.
 
-## Live Website
+The flagship case study is the portable multispectral imaging system for sodium nitrite detection published in *Sensors* (MDPI), DOI: [10.3390/s25237323](https://doi.org/10.3390/s25237323).
 
-Visit: `https://[your-username].github.io/catspect/`
+## Structure
 
-## About
+- `index.html` — the site (single file: HTML, CSS and vanilla JS, no build step)
+- `assets/` — web-optimised figures from the paper (`band-r2`, `ndi-map`, …) and instrument photos (`gen2-*`, `gen3-*`) converted from the HEIC originals
+- `msi_concept_nitrite_detection.png`, `portable_msi.png` — original full-resolution sources
 
-Catspect is a portable multispectral imaging system designed for rapid, on-site, and non-destructive chemical analysis of sodium nitrite in food safety and water quality applications.
+## Sections
 
-Based on research published in Sensors journal (MDPI) - DOI: 10.3390/s25237323
+Our story · Projects (01 nitrite imager, 02 20-filter aluminium imager, 03 live plant-health imager) · How we work · What's next · Publication and contact
 
-## Features
+## Editing
 
-- 9 spectral bands (360-940 nm)
-- NDI (Normalized Difference Index) algorithm
-- Griess reaction-based detection
-- 0.5-10 ppm detection range
-- R² = 0.99 linearity
-- Sub-minute acquisition time
+- **Contact email:** set `CONTACT_EMAIL` near the top of the `<script>` block in `index.html`. The email row stays hidden while it is empty.
+- **Text and photos:** each project is its own `<section>` (`#p1`, `#p2`, `#p3`) in `index.html`.
 
-## Technology Stack
+## Deploy (GitHub Pages)
 
-- HTML5
-- CSS3 (vanilla)
-- JavaScript (vanilla)
-- Responsive design
-- Minimalist aesthetic inspired by premium product showcases
+Push to a repository, then Settings → Pages → deploy from the `main` branch root. The site will be at `https://<your-username>.github.io/<repo-name>/`.
