@@ -7,6 +7,7 @@
 <title>CATSPECT</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="CATSPECT is a three-person research team building multispectral imaging instruments, bit by bit, out of passion.">
+<script>(function(){var t="graphite";try{var v=localStorage.getItem("catspect-theme");if(v)t=v;}catch(e){}document.documentElement.setAttribute("data-style",t);})();</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,7 +64,11 @@ figcaption{font-size:.8125rem;color:var(--muted);margin-top:10px;line-height:1.5
 .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px;font-size:.875rem}
 .nav ul a{text-decoration:none;color:var(--muted)}
 .nav ul a:hover{color:var(--ink)}
-@media (max-width:640px){.nav .wrap{flex-wrap:wrap;row-gap:10px;padding-block:12px 10px}.nav ul{width:100%;justify-content:space-between;gap:8px;font-size:.875rem}}
+.themes{display:flex;gap:7px;align-items:center}
+.themes button{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);padding:0;cursor:pointer;background:var(--sw)}
+.themes button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--bg) inset}
+.themes button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:640px){.nav .wrap{display:grid!important;grid-template-columns:1fr auto;column-gap:8px}.nav .brand{grid-column:1;grid-row:1;min-width:0}.nav .themes{grid-column:2;grid-row:1;align-self:start;margin-top:4px;gap:5px}.nav .themes button{width:15px;height:15px}.nav ul{grid-column:1/-1;grid-row:2}.nav ul{order:2}.nav .wrap{flex-wrap:wrap;row-gap:10px;padding-block:12px 10px}.nav ul{width:100%;justify-content:space-between;gap:8px;font-size:.875rem}}
 
 /* Sections */
 section{padding-block:clamp(72px,10vw,120px)}
@@ -280,8 +285,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media (max-width:420px){.cmp-row{gap:10px}.cmp-scale{width:54px}.cs-zone{font-size:.6875rem}}
 
 /* ---- Alternative styles (set with <html data-style="...">) ---- */
-html[data-style="graphite"]{--bg:#0d1014;--surface:#151a20;--ink:#ffffff;--muted:#dce1e6;--line:#2a323b;--accent:#7ee0b5;
-  --font-display:"Sora","Segoe UI",system-ui,sans-serif;--font-body:"Inter","Segoe UI",system-ui,sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;color-scheme:dark}
+html[data-style="graphite"],html[data-style="midnight"],html[data-style="light"],html[data-style="sand"]{--font-display:"Sora","Segoe UI",system-ui,sans-serif;--font-body:"Inter","Segoe UI",system-ui,sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+html[data-style="graphite"]{--bg:#0d1014;--surface:#151a20;--ink:#ffffff;--muted:#dce1e6;--line:#2a323b;--accent:#7ee0b5;color-scheme:dark}
+html[data-style="midnight"]{--bg:#0a1120;--surface:#111b30;--ink:#ffffff;--muted:#d3dbea;--line:#22304b;--accent:#7cc8ff;color-scheme:dark}
+html[data-style="light"]{--bg:#f7f8f7;--surface:#ffffff;--ink:#121614;--muted:#4f5752;--line:#dfe3e0;--accent:#11805a;color-scheme:light}
+html[data-style="sand"]{--bg:#f5f1ea;--surface:#fffdf9;--ink:#1f1a14;--muted:#5d554b;--line:#e4dccf;--accent:#b5541c;color-scheme:light}
 html[data-style="field"]{--bg:#f6f5f1;--surface:#ffffff;--ink:#1b2420;--muted:#5c6862;--line:#dfe2dc;--accent:#1d7a55;
   --font-display:"Manrope","Segoe UI",system-ui,sans-serif;--font-body:"Manrope","Segoe UI",system-ui,sans-serif;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
 html[data-style="mono"]{--bg:#ffffff;--surface:#f7f7f7;--ink:#111111;--muted:#5f5f5f;--line:#e4e4e4;--accent:#e4572e;
@@ -291,9 +299,9 @@ html[data-style="mono"] .hero h1{font-size:clamp(1.9rem,3.8vw,2.9rem)}
 html[data-style="mono"] .btn{border-radius:4px}
 html[data-style="field"] h1,html[data-style="field"] h2,html[data-style="field"] h3{font-weight:700;letter-spacing:-.03em}
 html[data-style="field"] .btn{border-radius:10px}
-html[data-style="graphite"] h1,html[data-style="graphite"] h2,html[data-style="graphite"] h3{font-weight:600;letter-spacing:-.035em}
-html[data-style="graphite"] .btn:hover{color:#0d1014}
-html[data-style="graphite"] .nav{background:color-mix(in srgb, var(--bg) 88%, transparent)}
+html[data-style="graphite"] h1,html[data-style="graphite"] h2,html[data-style="graphite"] h3,html[data-style="midnight"] h1,html[data-style="midnight"] h2,html[data-style="midnight"] h3,html[data-style="light"] h1,html[data-style="light"] h2,html[data-style="light"] h3,html[data-style="sand"] h1,html[data-style="sand"] h2,html[data-style="sand"] h3{font-weight:600;letter-spacing:-.035em}
+html[data-style="graphite"] .btn:hover,html[data-style="midnight"] .btn:hover,html[data-style="light"] .btn:hover,html[data-style="sand"] .btn:hover{color:var(--bg)}
+html[data-style="graphite"] .nav,html[data-style="midnight"] .nav,html[data-style="light"] .nav,html[data-style="sand"] .nav{background:color-mix(in srgb, var(--bg) 88%, transparent)}
 
 .catspect-tag{display:block;font-family:var(--font-mono);font-size:.75rem;white-space:nowrap;letter-spacing:.02em;color:var(--muted);font-weight:400}
 .catspect-tag b{font-weight:700;letter-spacing:.04em;color:var(--accent)}
@@ -318,6 +326,12 @@ html[data-style="graphite"] .nav{background:color-mix(in srgb, var(--bg) 88%, tr
       <li><a href="#paper">Publication</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="themes" role="group" aria-label="Colour theme">
+      <button type="button" data-theme="graphite" style="--sw:linear-gradient(135deg,#0d1014 50%,#7ee0b5 50%)" aria-label="Graphite theme" title="Graphite"></button>
+      <button type="button" data-theme="midnight" style="--sw:linear-gradient(135deg,#0a1120 50%,#7cc8ff 50%)" aria-label="Midnight theme" title="Midnight"></button>
+      <button type="button" data-theme="light" style="--sw:linear-gradient(135deg,#f7f8f7 50%,#11805a 50%)" aria-label="Light theme" title="Light"></button>
+      <button type="button" data-theme="sand" style="--sw:linear-gradient(135deg,#f5f1ea 50%,#b5541c 50%)" aria-label="Sand theme" title="Sand"></button>
+    </div>
   </div>
 </nav>
 
@@ -780,6 +794,12 @@ if(CONTACT_EMAIL){
   const set=v=>box.style.setProperty('--pos',v+'%');
   r.addEventListener('input',()=>set(r.value));
 })();
+</script>
+<script>
+(function(){var bs=document.querySelectorAll('.themes button');
+function mark(t){bs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.theme===t?'true':'false');});}
+mark(document.documentElement.getAttribute('data-style'));
+bs.forEach(function(b){b.addEventListener('click',function(){var t=b.dataset.theme;document.documentElement.setAttribute('data-style',t);mark(t);try{localStorage.setItem('catspect-theme',t);}catch(e){}});});})();
 </script>
 </body>
 </html>
