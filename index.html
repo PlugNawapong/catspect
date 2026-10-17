@@ -217,6 +217,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .steps .n{font-family:var(--font-mono);font-size:.75rem;color:var(--accent)}
 .steps h3{font-size:1.25rem}
 .steps p{font-size:.875rem;color:var(--muted)}
+.steps.gallery{gap:12px}
+@media (max-width:480px){.steps.gallery{grid-template-columns:repeat(2,1fr);gap:8px}}
 
 /* Icon timeline */
 .tl{list-style:none;padding:0;margin:clamp(40px,6vw,64px) 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:40px 20px}
@@ -377,18 +379,18 @@ html[data-style="graphite"] .nav{background:color-mix(in srgb, var(--bg) 88%, tr
       <li class="now"><span class="icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="36" r="5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 32l9-9M25 23l8-12M25 23l13 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="35" cy="9" r="4" fill="#2f6be0"/><circle cx="40" cy="25" r="4" fill="#e3c200"/><circle cx="25" cy="23" r="3.4" fill="#0a7ea8"/></svg></span><span class="when">Next</span><span class="what">Expanding to other applications</span></li>
     </ol>
     <div class="build">
-      <h3>Built with our own hands</h3>
-      <p class="lead">We put every instrument together ourselves, from seating each filter to wiring the circuit board. These photos show how our aluminium imager came together, step by step.</p>
+      <h3>Made in our lab</h3>
+      <p class="lead">We design, machine, wire and assemble every instrument ourselves. A few moments from building the aluminium imager.</p>
     </div>
-    <ol class="steps">
-      <li><img src="assets/asm-1-parts.jpg" alt="Filters, retaining rings, filter wheels and a circuit board laid out on a white bench" width="900" height="900" loading="lazy"><span class="n">Step 1</span><h3>Lay out the parts</h3><p>Filters, retaining rings, machined wheels and the circuit board, checked and cleaned.</p></li>
-      <li><img src="assets/asm-2-filters.jpg" alt="Filters being seated into an aluminium filter wheel with a red tool" width="900" height="900" loading="lazy"><span class="n">Step 2</span><h3>Seat the filters</h3><p>Each filter is pressed into its slot and locked with a ring.</p></li>
-      <li><img src="assets/asm-3-camera.jpg" alt="Camera being screwed onto the top plate with a hex key" width="900" height="900" loading="lazy"><span class="n">Step 3</span><h3>Mount the camera</h3><p>The camera is fixed to the top plate, centred over the light path.</p></li>
-      <li><img src="assets/asm-4-wheels.jpg" alt="A hand reaching into the chassis to fit the filter wheels under the top plate" width="900" height="900" loading="lazy"><span class="n">Step 4</span><h3>Fit the wheels</h3><p>The two filter wheels go in under the camera, stacked in the light path.</p></li>
-      <li><img src="assets/asm-5-ring.jpg" alt="The machined illumination ring with eight lamp mounting brackets around a central aperture" width="900" height="900" loading="lazy"><span class="n">Step 5</span><h3>Add the lighting ring</h3><p>A machined ring with eight lamp mounts, for even light on the sample.</p></li>
-      <li><img src="assets/asm-5-fasten.jpg" alt="Locking the lighting ring in place inside the chassis with a small screwdriver" width="900" height="900" loading="lazy"><span class="n">Step 6</span><h3>Lock the lighting ring</h3><p>The ring is screwed tight inside the chassis, centred under the wheels.</p></li>
-      <li><img src="assets/asm-6-closed.jpg" alt="The finished aluminium instrument, closed, with the camera on top" width="900" height="900" loading="lazy"><span class="n">Step 7</span><h3>Close it up</h3><p>Panels on, cables in, electronics sealed.</p></li>
-      <li><img src="assets/gen3-chamber-close.jpg" alt="Inside the finished instrument, the chamber lit warm yellow with a sample under the lighting ring" width="1400" height="1050" loading="lazy"><span class="n">Step 8</span><h3>First light</h3><p>Lamps on, sample in, and the first test images.</p></li>
+    <ol class="steps gallery">
+      <li><img src="assets/bld-1-parts.jpg" alt="Filters, retaining rings, machined filter wheels and a circuit board laid out on the bench" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-2-chassis.jpg" alt="The aluminium chassis being assembled, with two filter wheels inside" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-3-pcb.jpg" alt="Our CATSPECT circuit board mounted on the instrument panel" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-4-filters.jpg" alt="Seating a filter into a machined filter wheel with a red ring tool" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-5-ring.jpg" alt="The lighting ring with LED and halogen lamps, wired and held up by hand" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-6-light.jpg" alt="The lighting ring switched on inside the aluminium chassis" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-7-assembled.jpg" alt="The assembled imager with the camera and two motors on top, filter wheels and lighting ring inside" width="900" height="900" loading="lazy"></li>
+      <li><img src="assets/bld-8-print.jpg" alt="3D printing the CATSPECT label for the instrument" width="900" height="900" loading="lazy"></li>
     </ol>
 
   </div>
