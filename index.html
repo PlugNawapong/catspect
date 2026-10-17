@@ -281,7 +281,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .cmp-stats{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:.875rem;color:var(--muted)}
 .cmp-stats b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
 .cmp-stats i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}
-@media (max-width:560px){.tsuf{display:none}.cmp-tag{top:10px;font-size:.625rem;padding:3px 8px}.cmp-tag.left{left:10px}.cmp-tag.right{right:10px}}
+.tsuf i{font-style:normal}
+@media (max-width:560px){.tsuf{display:block;opacity:.8}.tsuf i{display:none}.cmp-tag{top:10px;font-size:.625rem;padding:4px 8px;line-height:1.35;border-radius:8px}.cmp-tag.right{text-align:right}.cmp-tag.left{left:10px}.cmp-tag.right{right:10px}}
 @media (max-width:420px){.cmp-row{gap:10px}.cmp-scale{width:54px}.cs-zone{font-size:.6875rem}}
 
 /* ---- Alternative styles (set with <html data-style="...">) ---- */
@@ -357,10 +358,10 @@ html[data-style="graphite"] .nav,html[data-style="midnight"] .nav,html[data-styl
           <img src="assets/compare-eye.jpg" alt="True-colour image of duckweed floating on water: the fronds look similarly green" width="900" height="900">
           <img class="cmp-top" src="assets/compare-msi.jpg" alt="NDVI map of the same duckweed: healthy fronds appear deep green, weaker ones pale, and the water red" width="900" height="900">
           <span class="cmp-line" aria-hidden="true"><span class="cmp-knob"></span></span>
-          <span class="cmp-tag left">Naked eye<span class="tsuf"> · RGB</span></span>
-          <span class="cmp-tag right">Multispectral<span class="tsuf"> · NDVI</span></span>
+          <span class="cmp-tag left">Human eye<span class="tsuf"><i> · </i>RGB</span></span>
+          <span class="cmp-tag right">Multispectral<span class="tsuf"><i> · </i>NDVI</span></span>
 
-          <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" aria-label="Compare naked eye and multispectral views">
+          <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" aria-label="Compare human eye and multispectral views">
         </div>
           <div class="cmp-scale" aria-label="NDVI scale: healthy 0.6 and above, moderate 0.3 to 0.6, stressed 0.3 and below">
             <span class="cs-title">NDVI</span>
