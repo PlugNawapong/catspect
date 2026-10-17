@@ -225,6 +225,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .team-photo.top{margin:0 0 clamp(40px,6vw,64px)}
 .team-photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px}
 .team-illus{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+html[data-style="sky"] .il-bg{fill:#ffffff}
+html[data-style="sky"] .il-beam{stroke:#8aa0b8}
+html[data-style="sky"] .il-prism{stroke:#7f97b3;fill:#dbe8f7;fill-opacity:.6}
+html[data-style="sky"] .il-lbl{fill:var(--accent)}
+html[data-style="sky"] .il-me,html[data-style="sky"] .il-mel{fill:var(--accent);stroke:var(--accent)}
+html[data-style="sky"] .il-metx{fill:#ffffff}
+html[data-style="sky"] .il-halo{opacity:.35}
+html[data-style="sky"] .il-hole{fill:#ffffff}
 .team-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 .team-roles div{display:grid;gap:2px;text-align:center}
 .team-roles b{font-family:var(--font-mono);font-weight:600;font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
@@ -403,8 +411,8 @@ html[data-style="graphite"] .nav,html[data-style="sky"] .nav{background:color-mi
     <radialGradient id="glow" cx=".5" cy=".75" r=".7"><stop offset="0" stop-color="#ffd27a" stop-opacity=".85"/><stop offset=".55" stop-color="#8a5a1c" stop-opacity=".6"/><stop offset="1" stop-color="#14100a"/></radialGradient>
     <radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#7ee0b5" stop-opacity=".16"/><stop offset="1" stop-color="#7ee0b5" stop-opacity="0"/></radialGradient>
   </defs>
-  <rect width="1200" height="720" rx="14" fill="#151a20"/>
-  <circle cx="600" cy="565" r="230" fill="url(#halo)"/>
+  <rect class="il-bg" width="1200" height="720" rx="14" fill="#151a20"/>
+  <circle class="il-halo" cx="600" cy="565" r="230" fill="url(#halo)"/>
   
 <path d="M330,290 C344,420 470,430 540,479" fill="none" stroke="url(#spec)" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
 <path d="M722,300 C722,380 640,380 628,415" fill="none" stroke="#b8c2cc" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
@@ -420,10 +428,10 @@ html[data-style="graphite"] .nav,html[data-style="sky"] .nav{background:color-mi
   <path d="M156,262 Q184,240 206,236" fill="none" stroke="#5b6cf0" stroke-width="24" stroke-linecap="round"/>
   <circle cx="210" cy="236" r="12" fill="#d9ab86"/>
 </g><g>
-  <path d="M164,228 H246" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
-  <path d="M246,228 L286,228" stroke="#ffffff" stroke-width="4" opacity=".9"/>
+  <path class="il-beam" d="M164,228 H246" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+  <path class="il-beam" d="M246,228 L286,228" stroke="#ffffff" stroke-width="4" opacity=".9"/>
   <ellipse cx="246" cy="228" rx="13" ry="44" fill="#9fd4ff" fill-opacity=".35" stroke="#cfe9ff" stroke-width="3"/>
-  <path d="M284,258 L308,200 L326,258 Z" fill="#cfe9ff" fill-opacity=".25" stroke="#e6f3ff" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M284,258 L308,200 L326,258 Z" class="il-prism" fill="#cfe9ff" fill-opacity=".25" stroke="#e6f3ff" stroke-width="3" stroke-linejoin="round"/>
   <path d="M304,228 L396,180" stroke="#7b3fe4" stroke-width="4" stroke-linecap="round"/><path d="M304,228 L396,200" stroke="#2f6be0" stroke-width="4" stroke-linecap="round"/><path d="M304,228 L396,220" stroke="#14a85c" stroke-width="4" stroke-linecap="round"/><path d="M304,228 L396,240" stroke="#e3c200" stroke-width="4" stroke-linecap="round"/><path d="M304,228 L396,260" stroke="#ff8a00" stroke-width="4" stroke-linecap="round"/><path d="M304,228 L396,280" stroke="#d7302a" stroke-width="4" stroke-linecap="round"/>
 </g>
   <g>
@@ -437,8 +445,8 @@ html[data-style="graphite"] .nav,html[data-style="sky"] .nav{background:color-mi
   <path d="M556,262 Q584,240 606,236" fill="none" stroke="#8b96a1" stroke-width="24" stroke-linecap="round"/>
   <circle cx="610" cy="236" r="12" fill="#d9ab86"/>
 </g><g>
-  <rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(0.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(36.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(72.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(108.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(144.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(180.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(216.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(252.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(288.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(324.0 666 214)"/><circle cx="666" cy="214" r="40" fill="#b8c2cc"/><circle cx="666" cy="214" r="15.2" fill="#151a20"/>
-  <rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(0.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(45.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(90.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(135.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(180.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(225.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(270.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(315.0 722 268)"/><circle cx="722" cy="268" r="24" fill="#8b96a1"/><circle cx="722" cy="268" r="9.1" fill="#151a20"/>
+  <rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(0.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(36.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(72.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(108.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(144.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(180.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(216.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(252.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(288.0 666 214)"/><rect x="660.4" y="164.4" width="11.2" height="16.8" rx="2" fill="#b8c2cc" transform="rotate(324.0 666 214)"/><circle cx="666" cy="214" r="40" fill="#b8c2cc"/><circle class="il-hole" cx="666" cy="214" r="15.2" fill="#151a20"/>
+  <rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(0.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(45.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(90.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(135.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(180.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(225.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(270.0 722 268)"/><rect x="718.6" y="238.2" width="6.7" height="10.1" rx="2" fill="#8b96a1" transform="rotate(315.0 722 268)"/><circle cx="722" cy="268" r="24" fill="#8b96a1"/><circle class="il-hole" cx="722" cy="268" r="9.1" fill="#151a20"/>
   <path d="M624,300 l60,-10" stroke="#8b96a1" stroke-width="0"/>
 </g>
   <g>
@@ -458,11 +466,11 @@ html[data-style="graphite"] .nav,html[data-style="sky"] .nav{background:color-mi
   <circle cx="1094" cy="226" r="5" fill="#7ee0b5"/>
   <circle cx="1144" cy="262" r="4" fill="#ff5a5a"/>
 </g>
-  <text x="114" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" fill="#7ee0b5">OPTICS</text><text x="514" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" fill="#7ee0b5">MECHANICS</text><text x="914" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" fill="#7ee0b5">ELECTRONICS</text>
+  <text x="114" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" class="il-lbl" fill="#7ee0b5">OPTICS</text><text x="514" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" class="il-lbl" fill="#7ee0b5">MECHANICS</text><text x="914" y="92" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, Menlo, monospace" font-size="30" font-weight="600" letter-spacing="3" class="il-lbl" fill="#7ee0b5">ELECTRONICS</text>
   <g>
-    <rect x="16" y="146" width="52" height="34" rx="17" fill="#7ee0b5"/>
-    <text x="42" y="170" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#0d1014">Me</text>
-    <path d="M68,163 L75,163" stroke="#7ee0b5" stroke-width="3" stroke-linecap="round"/>
+    <rect x="16" y="146" width="52" height="34" rx="17" class="il-me" fill="#7ee0b5"/>
+    <text x="42" y="170" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" class="il-metx" fill="#0d1014">Me</text>
+    <path d="M68,163 L75,163" class="il-mel" stroke="#7ee0b5" stroke-width="3" stroke-linecap="round"/>
   </g>
   <g>
   <rect x="512" y="443" width="40" height="30" rx="4" fill="#3a4149"/>
